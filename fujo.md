@@ -40,7 +40,7 @@ flowchart TD
 
     bienvenida --> tratamientoDatos
     tratamientoDatos -->presentacion
-    presentacion -->|Hubo un error| presentacion
+    presentacion -->|Hubo un error|presentacion
     presentacion -->|El usuario escogio una opcion|docu
     docu -->|DOCUMENTO|verifDocu
     verifDocu -->|No|docu
