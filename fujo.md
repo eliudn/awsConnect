@@ -51,7 +51,7 @@ flowchart LR
     especialidad --> varifEspeci
     varifEspeci -->|no quiero|especialidad
     varifEspeci -->|si quiero|msjvalida
-    mesjvalida -->agenDia
+    msjvalida -->agenDia
     agenDia -->agendHora
     agendHora -->|no serve el horario|agenDia
     agendHora -->msjAgenCitas
