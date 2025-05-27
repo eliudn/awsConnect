@@ -4,7 +4,7 @@
 ---
 title: Flujo agente medico
 ---
-flowchart LR
+flowchart TD
 
     bienvenida("Bienvenido a su asistente virtual para citas medicas")
 
