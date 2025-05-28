@@ -4,7 +4,19 @@
 ---
 title: Flujo agente medico
 ---
-%%{init: {'theme':'forest'}}%%
+%%{
+  init: {
+    'theme': 'base',
+    'themeVariables': {
+      'primaryColor': '#BB2528',
+      'primaryTextColor': '#fff',
+      'primaryBorderColor': '#7C0000',
+      'lineColor': '#F8B229',
+      'secondaryColor': '#006100',
+      'tertiaryColor': '#fff'
+    }
+  }
+}%%
 flowchart TD
 
     bienvenida@{shape: stadium, label: "Bienvenido a su asistente virtual para citas medicas"}
