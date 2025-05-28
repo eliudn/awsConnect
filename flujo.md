@@ -37,7 +37,7 @@ flowchart TD
 
     msjRetorno{"Perfecto, hay algo mas en lo que le puedad ayudar"}
 
-    msjDespedida@{ shape: stadium, label: "listo, que tenga un buen dia"})
+    msjDespedida@{ shape: stadium, label: "listo, que tenga un buen dia"}
 
     bienvenida --> tratamientoDatos
     tratamientoDatos -->presentacion
