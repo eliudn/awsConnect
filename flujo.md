@@ -6,7 +6,7 @@ title: Flujo agente medico
 ---
 flowchart TD
 
-    bienvenida("Bienvenido a su asistente virtual para citas medicas")
+    bienvenida@{ shape: stadium, label: "Bienvenido a su asistente virtual para citas medicas"}
 
     tratamientoDatos["Al continuar en la linea acepta nuestro tratamiento de datos"]
 
