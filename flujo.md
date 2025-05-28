@@ -1,10 +1,10 @@
 # Flujo
 
 ```mermaid
-%%{init: {'theme':'forest'}}%%
 ---
 title: Flujo agente medico
 ---
+%%{init: {'theme':'forest'}}%%
 flowchart TD
 
     bienvenida@{shape: stadium, label: "Bienvenido a su asistente virtual para citas medicas"}
