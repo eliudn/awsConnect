@@ -1,12 +1,13 @@
 # Flujo
 
 ```mermaid
+%%{init: {'theme':'forest'}}%%
 ---
 title: Flujo agente medico
 ---
 flowchart TD
 
-    bienvenida@{ shape: stadium, label: "Bienvenido a su asistente virtual para citas medicas"}
+    bienvenida@{shape: stadium, label: "Bienvenido a su asistente virtual para citas medicas"}
 
     tratamientoDatos["Al continuar en la linea acepta nuestro tratamiento de datos"]
 
@@ -36,7 +37,7 @@ flowchart TD
 
     msjRetorno{"Perfecto, hay algo mas en lo que le puedad ayudar"}
 
-    msjDespedida("listo, que tenga un buen dia")
+    msjDespedida@{ shape: stadium, label: "listo, que tenga un buen dia"})
 
     bienvenida --> tratamientoDatos
     tratamientoDatos -->presentacion
