@@ -1,75 +1,76 @@
 # Flujo
 
+
 ```mermaid
----
-title: Flujo agente medico
----
-%%{
-  init: {
-    'theme': 'base',
-    'themeVariables': {
-      'primaryColor': '#BB2528',
-      'primaryTextColor': '#fff',
-      'primaryBorderColor': '#7C0000',
-      'lineColor': '#F8B229',
-      'secondaryColor': '#006100',
-      'tertiaryColor': '#fff'
-    }
-  }
-}%%
-flowchart TD
+%%{init: { "flowchart": { "htmlLabels": true, "curve": "linear" } } }%%
 
-    bienvenida@{shape: stadium, label: "Bienvenido a su asistente virtual para citas medicas"}
+flowchart TB
+    inicio(["Bienvenido al asistente virtual para citas médicas."]):::green
+    datosPersonales["Al continuar en la línea, acepta nuestra política de tratamiento de datos."]:::blue
+    presentacionBot["`Hola, soy Jorge, tu asistente virtual. Puedo ayudarte con agendar, modificar o cancelar una cita médica. ¿Cómo puedo ayudarte hoy?`"]:::blue
 
-    tratamientoDatos["Al continuar en la linea acepta nuestro tratamiento de datos"]
+    solicitarDocumento[/"`Por favor, indícame el número de documento del paciente.`"/]:::purple
+    confirmarDocumento{"`¿El número “DOCUMENTO” es correcto?`"}:::orange
+    validandoDocumento["`Gracias. Estoy validando tus datos…`"]:::blue
 
-    presentacion{"Hola, mi nombre es joge, tu asistente virtual para: Agendameintos. Modificacion. Cancelacion. de citas medicas, ¿en que le puedo ayudar el dia de hoy?"}
+    confirmarIdentidad{"`¿Estás consultando para “NOMBRE_COMPLETO”?`"}:::orange
 
-    docu@{ shape: lean-r, label: "Por favor comparte el numero de documento de la persona para la que desaa el servicio" }
+    solicitarEspecialidad[/"`¿Para cuál especialidad deseas la cita? Medicina General, Odontología o Pediatría.`"/]:::purple
+    confirmarEspecialidad{"`¿Confirmas que deseas la cita para la especialidad “ESPECIALIDAD”?`"}:::orange
 
-    verifDocu{"El numero de documento “DOCUMENTO” es correcto"}
+    buscandoDisponibilidad["`Perfecto, estoy consultando la disponibilidad…`"]:::blue
+    mostrarFechas[/"`Tengo disponibles los siguientes días del mes: “DÍA - MES”. ¿Cuál prefieres? Si deseas más opciones, puedo darte otras fechas.`"/]:::purple
+    confirmarFecha{"`¿Deseas agendar para el día “FECHA”?`"}:::orange
 
-    validaconDocu["Listo, estoy validando tus datos."]
+    mostrarHorarios[/"`Para ese día, tengo disponibles los siguientes horarios: “HORARIOS”. ¿Cuál te conviene?`"/]:::purple
+    confirmarHorario{"`Has elegido el horario “HORARIO”. ¿Es correcto?`"}:::orange
 
-    verifNombre{"correcto, ¿estas consultando para “NOMBRE_COMPLETO”?"}
+    procesandoAgendamiento["`Estoy registrando tu cita…`"]:::blue
 
-    especialidad@{ shape: lean-r, label: "Con cual de la siguientes especialidades te gustaria agendar tu cita: mediciana general, Odontologia, Pedriatria"}
+    resumenCita{"`Tu cita ha sido agendada para “NOMBRE_COMPLETO” el “DÍA” a las “HORARIO” en “UBICACIÓN”. ¿Es correcto?`"}:::orange
+    citaConfirmada["`¡Listo! Tu cita ha sido registrada exitosamente.`"]:::blue
 
-    varifEspeci{"Quiere que su agedaminetos sea para la especialidad ˝Especialidad˝"}
+    ofrecerAyuda["`¿Hay algo más en lo que te pueda ayudar?`"]:::blue
+    despedida(["`Gracias por comunicarte con nosotros. Que tengas un excelente día.`"]):::green
 
-    msjvalida["Listo, estoy validando disponibilidad, deme un momento"]
+    errorOpcion["`Lo siento, no entendí tu respuesta. ¿Podrías repetirlo, por favor?`"]:::blue
 
-    agenDia@{ shape: lean-r, label: "Tenemos disponibles los siguientes dias. ˝DIA˝ del ˝MES˝<x4 opciones>
-    En que Fecha te gustaria la cita? si nesesitas te puedo dar mas opciones de disponibilidad"}
+    %% Conexiones del flujo
+    inicio --> datosPersonales
+    datosPersonales --> presentacionBot
+    presentacionBot --> solicitarDocumento
+    presentacionBot -->|Respuesta no entendida| errorOpcion
+    errorOpcion --> presentacionBot
 
-    agendHora{"Listos, Para esa fecha tenemos disponiblidad a las: ˝Horarios˝
-    ¿Que horarios te sirve?"}
+    solicitarDocumento --> confirmarDocumento
+    confirmarDocumento -->|No| solicitarDocumento
+    confirmarDocumento -->|Sí| validandoDocumento
+    validandoDocumento --> confirmarIdentidad
+    confirmarIdentidad -->|No| solicitarDocumento
+    confirmarIdentidad -->|Sí| solicitarEspecialidad
 
-    msjAgenCitas["Listo, tu cita para ˝NOMBRE_COMPLETO˝ ha quedado para el ˝DIA˝ a las ˝HORARIO˝ en ˝UBICACION˝. ¿es correcto?"]
+    solicitarEspecialidad --> confirmarEspecialidad
+    confirmarEspecialidad -->|No| solicitarEspecialidad
+    confirmarEspecialidad -->|Sí| buscandoDisponibilidad
+    buscandoDisponibilidad --> mostrarFechas
 
-    msjRetorno{"Perfecto, hay algo mas en lo que le puedad ayudar"}
+    mostrarFechas --> confirmarFecha
+    confirmarFecha -->|No| mostrarFechas
+    confirmarFecha -->|Sí| mostrarHorarios
 
-    msjDespedida@{ shape: stadium, label: "listo, que tenga un buen dia"}
+    mostrarHorarios --> confirmarHorario
+    confirmarHorario -->|No| mostrarHorarios
+    confirmarHorario -->|Sí| procesandoAgendamiento
 
-    bienvenida --> tratamientoDatos
-    tratamientoDatos -->presentacion
-    presentacion -->|Hubo un error|presentacion
-    presentacion -->|El usuario escogio una opcion|docu
-    docu -->|DOCUMENTO|verifDocu
-    verifDocu -->|No|docu
-    verifDocu -->|Si|validaconDocu
-    validaconDocu -->verifNombre
-    verifNombre -->|No es correcto|docu
-    verifNombre -->|Es correcto|especialidad
-    especialidad --> varifEspeci
-    varifEspeci -->|no quiero|especialidad
-    varifEspeci -->|si quiero|msjvalida
-    msjvalida -->agenDia
-    agenDia -->agendHora
-    agendHora -->|no serve el horario|agenDia
-    agendHora -->msjAgenCitas
-    msjAgenCitas --> msjRetorno
-    msjRetorno -->|si hay algo mas|docu
-    msjRetorno -->|no,gracias|msjDespedida
+    procesandoAgendamiento --> resumenCita
+    resumenCita -->|No| mostrarFechas
+    resumenCita -->|Sí| citaConfirmada
+    citaConfirmada --> ofrecerAyuda
+    ofrecerAyuda --> despedida
 
+%% Estilos
+classDef green fill:#B2DFDB,stroke:#00897B,stroke-width:2px;
+classDef orange fill:#FFE0B2,stroke:#FB8C00,stroke-width:2px;
+classDef blue fill:#BBDEFB,stroke:#1976D2,stroke-width:2px;
+classDef purple fill:#E1BEE7,stroke:#8E24AA,stroke-width:2px;
 ```
