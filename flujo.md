@@ -1,10 +1,10 @@
-# Flujo
+# Flujo de agendamiento de citas medicas
 
 
 ```mermaid
 %%{init: { "flowchart": { "htmlLabels": true, "curve": "linear" } } }%%
 
-flowchart TB
+flowchart TD
     inicio(["Bienvenido al asistente virtual para citas médicas."]):::green
     datosPersonales["Al continuar en la línea, acepta nuestra política de tratamiento de datos."]:::blue
     presentacionBot["`Hola, soy Jorge, tu asistente virtual. Puedo ayudarte con agendar, modificar o cancelar una cita médica. ¿Cómo puedo ayudarte hoy?`"]:::blue
